@@ -1,0 +1,5 @@
+pandas
+kagglehub
+matplotlib
+seaborn
+opencv-python
