@@ -2,4 +2,4 @@ pandas
 kagglehub
 matplotlib
 seaborn
-opencv-python 
+opencv-python
