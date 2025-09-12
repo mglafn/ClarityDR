@@ -4,3 +4,5 @@ matplotlib
 seaborn
 opencv-python 
 kaggle
+torch
+torchvision
