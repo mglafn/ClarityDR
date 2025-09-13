@@ -6,3 +6,5 @@ opencv-python
 kaggle
 torch
 torchvision
+pytorch_lightning
+torch_metrics
