@@ -1,0 +1,42 @@
+services:
+  pytorch-rocm:
+    build: .
+    container_name: pytorch-rocm-claritydr
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+      - PYTORCH_ROCM_ARCH=gfx1010
+      - HIP_VISIBLE_DEVICES=0
+      - ROCR_VISIBLE_DEVICES=0
+      # Critical memory fixes for Navi 10
+      - HSA_ENABLE_SDMA=0
+      - MIOPEN_DEBUG_DISABLE_FIND_DB=1
+      - HSA_FORCE_FINE_GRAIN_PCIE=1
+      - PYTORCH_HIP_ALLOC_CONF=garbage_collection_threshold:0.8,max_split_size_mb:512
+      # Remove the coherent memory flag - it can cause issues
+      # - HSA_AMD_FORCE_COHERENT_HOST_MEMORY=1
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - video
+      - render
+    ipc: host
+    shm_size: 32G  # Increased from 16G
+    # Add security options for better memory access
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    volumes:
+      - .:/app
+    ports:
+      - "8888:8888"
+    command: >
+      jupyter lab
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --LabApp.token=''
+      --LabApp.password=''

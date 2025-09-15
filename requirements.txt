@@ -1,10 +1,24 @@
+# requirements.txt
+
+# --- Core ML Libraries are provided by the base image ---
+# We will install a compatible pytorch-lightning in the Dockerfile
+
+# Pin NumPy to a range compatible with pandas and the older scipy
+numpy>=1.22.4,<1.25.0
+
+# --- Visualization & Data Handling ---
 pandas
-kagglehub
 matplotlib
 seaborn
-opencv-python 
+opencv-python
+tensorboard
+
+# --- Notebook & Tooling ---
+ipywidgets
+tqdm
 kaggle
-torch
-torchvision
-pytorch_lightning
-torch_metrics
+kagglehub
+
+# --- XAI Libraries ---
+captum
+grad-cam
